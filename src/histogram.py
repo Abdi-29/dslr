@@ -31,7 +31,7 @@ def show_focused_histogram(most_homogeneous_course, houses, grouped_data):
 
     plt.title(f"Most Homogeneous Course: {most_homogeneous_course}")
     plt.xlabel("Score")
-    plt.ylabel("Frequency (Density)")
+    plt.ylabel("Frequency")
     plt.legend(loc='best')
     plt.show()
 
