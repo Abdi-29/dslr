@@ -1,5 +1,14 @@
 import math
 
+#https://www.scribbr.com/statistics/standard-deviation/
+def variance(data):
+    mean = sum(data) / len(data)
+    squared_deviation =  [(float(x) - mean) ** 2 for x in data]
+    return sum(squared_deviation) / float(len(data))
+
+def std_deviation(data):
+    return math.sqrt(variance(data))
+
 class Feature:
     def __init__(self, name, values):
         self.name = name
