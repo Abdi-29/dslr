@@ -2,7 +2,7 @@ import matplotlib.pyplot as plt
 from parsing import check_input
 import pandas as pd
 import sys
-import itertools
+import seaborn as sb
 
 
 # def scatter_plot(numerical_columns, houses, grouped_data):
@@ -16,24 +16,33 @@ import itertools
 
 
 def find_most_similar_features(data, numerical_columns):
-    correlation_matrix = data[numerical_columns].corr()
-
+    correlation_matrix = data[numerical_columns].corr(method='pearson')
+    # print(correlation_matrix)
+    # sb.heatmap(correlation_matrix, 
+    #         xticklabels=correlation_matrix.columns,
+    #         yticklabels=correlation_matrix.columns,
+    #         cmap='RdBu_r',
+    #         annot=True,
+    #         linewidth=0.5)
+    # plt.show()
     #sort by correlation value
     corr_pairs = correlation_matrix.unstack()
     corr_pairs = corr_pairs[corr_pairs < 1]  # Exclude self-correlation
     sorted_corr = corr_pairs.sort_values(ascending=False)
-
+    # print(sorted_corr)
     most_similar = sorted_corr.idxmax()
     highest_correlation = sorted_corr.max()
-
+    # print(f"most similar: {most_similar} and highest_correlation {highest_correlation}")
     return most_similar, highest_correlation
 
 
 def plot_all_feature_pairs(data, numerical_columns, houses):
-
+    colors = {'Ravenclaw': 'blue', 'Slytherin': 'green', 'Gryffindor': 'red', 'Hufflepuff': 'orange'}
+    
     most_similar_features, correlation_value = find_most_similar_features(data, numerical_columns)
-    feature1, feature2 = most_similar_features
-    print(f"test: {feature1} vs {feature2} (Correlation: {correlation_value:.2f})")
+    print(most_similar_features, correlation_value)
+    # feature1, feature2 = most_similar_features
+    # print(f"test: {feature1} vs {feature2} (Correlation: {correlation_value:.2f})")
 
 
 
