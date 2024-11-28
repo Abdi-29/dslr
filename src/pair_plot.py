@@ -11,12 +11,11 @@ def show_pair_plot(data):
         data[numerical_columns + ['Hogwarts House']],
         hue='Hogwarts House',
         palette=colors,
-        height=2.5,  # Increase size of plots
-        diag_kind="hist",  # Use histograms on diagonals
-        plot_kws={'alpha': 0.7}  # Add transparency to points
+        height=2.5,
+        diag_kind="hist",
+        plot_kws={'alpha': 0.7}
     )
 
-    # Save and show the plot
     plt.suptitle("Pair Plot of Hogwarts Courses by House", y=1.02)
     plt.savefig("pair_plot_improved.png", dpi=300, bbox_inches="tight")
     plt.show()
