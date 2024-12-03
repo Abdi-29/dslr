@@ -1,10 +1,10 @@
 from parsing import check_input
 import sys
-from feature import Feature
+from feature import Feature, NUMERICAL_COLUMNS
 import pandas as pd
 
-def display_statistics_table(data, numerical_columns):
-    features = [Feature(column, data[column].dropna().values) for column in numerical_columns]
+def display_statistics_table(data):
+    features = [Feature(column, data[column].dropna().values) for column in NUMERICAL_COLUMNS]
 
     statistics = ["Count", "Mean", "Std", "Min", "25%", "50%", "75%", "Max"]
 
@@ -27,10 +27,4 @@ if __name__ == "__main__":
     check_input(sys.argv)
     data = pd.read_csv(sys.argv[1], index_col=0)
     
-    numerical_columns = [
-        'Arithmancy', 'Astronomy', 'Herbology', 'Defense Against the Dark Arts',
-        'Divination', 'Muggle Studies', 'Ancient Runes', 'History of Magic',
-        'Transfiguration', 'Potions', 'Care of Magical Creatures', 'Charms', 'Flying'
-    ]
-    
-    display_statistics_table(data, numerical_columns)
+    display_statistics_table(data)

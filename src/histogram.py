@@ -1,16 +1,16 @@
 import matplotlib.pyplot as plt
 from parsing import check_input
-from feature import std_deviation
+from feature import std_deviation, NUMERICAL_COLUMNS, HOUSES
 import pandas as pd
 import sys
 
 
 import matplotlib.pyplot as plt
 
-def calculate_course_homogeneity(numerical_columns, houses, grouped_data):
+def calculate_course_homogeneity(houses, grouped_data):
     homogeneity_scores = {}
 
-    for course in numerical_columns:
+    for course in NUMERICAL_COLUMNS:
         stds = []
         for house in houses:
             house_data = grouped_data.get_group(house)[course].dropna()
@@ -42,19 +42,12 @@ if __name__ == "__main__":
 
     data = pd.read_csv(sys.argv[1], index_col=0)
 
-    numerical_columns = [
-    'Arithmancy', 'Astronomy', 'Herbology', 'Defense Against the Dark Arts',
-    'Divination', 'Muggle Studies', 'Ancient Runes', 'History of Magic',
-    'Transfiguration', 'Potions', 'Care of Magical Creatures', 'Charms', 'Flying'
-    ]
+    houses = data[HOUSES].unique()
 
-    houses = data['Hogwarts House'].unique()
+    grouped_data = data.groupby(HOUSES)
 
-    grouped_data = data.groupby('Hogwarts House')
-
-    homogeneity_scores, most_homogeneous_course = calculate_course_homogeneity(numerical_columns, houses, grouped_data)
+    homogeneity_scores, most_homogeneous_course = calculate_course_homogeneity(houses, grouped_data)
     print(f"Homogeneity Scores: {homogeneity_scores}")
     print(f"The most homogeneous course is: {most_homogeneous_course}")
 
     show_focused_histogram(most_homogeneous_course, houses, grouped_data)
-

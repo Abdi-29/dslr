@@ -1,5 +1,13 @@
 import math
 
+NUMERICAL_COLUMNS = [
+    'Arithmancy', 'Astronomy', 'Herbology', 'Defense Against the Dark Arts',
+    'Divination', 'Muggle Studies', 'Ancient Runes', 'History of Magic',
+    'Transfiguration', 'Potions', 'Care of Magical Creatures', 'Charms', 'Flying'
+]
+
+HOUSES = "Hogwarts House"
+
 #https://www.scribbr.com/statistics/standard-deviation/
 def variance(data):
     mean = sum(data) / len(data)

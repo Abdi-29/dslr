@@ -1,11 +1,12 @@
 import matplotlib.pyplot as plt
 from parsing import check_input
 import pandas as pd
+from feature import NUMERICAL_COLUMNS, HOUSES
 import sys
 import seaborn as sb
 
-def find_most_similar_features(data, numerical_columns):
-    correlation_matrix = data[numerical_columns].corr(method='pearson')
+def find_most_similar_features(data):
+    correlation_matrix = data[NUMERICAL_COLUMNS].corr(method='pearson')
 
     """
         print(correlation_matrix)
@@ -28,16 +29,16 @@ def find_most_similar_features(data, numerical_columns):
     return most_similar, highest_correlation
 
 
-def plot_all_feature_pairs(data, numerical_columns):
+def plot_all_feature_pairs(data):
     colors = {'Ravenclaw': 'blue', 'Slytherin': 'green', 'Gryffindor': 'red', 'Hufflepuff': 'orange'}
     
-    most_similar_features, correlation_value = find_most_similar_features(data, numerical_columns)
+    most_similar_features, correlation_value = find_most_similar_features(data)
     print(most_similar_features, correlation_value)
     # plt.style.use('ggplot')
     plt.figure(num='Similar features', figsize=(8,6))
     ax = plt.subplot(111)
     plt.title(f"The two features that are similar: {most_similar_features}")
-    sb.scatterplot(x=most_similar_features[1], y=most_similar_features[0], hue='Hogwarts House', palette=colors, data=data, ax=ax)
+    sb.scatterplot(x=most_similar_features[1], y=most_similar_features[0], hue=HOUSES, palette=colors, data=data, ax=ax)
     ax.legend(loc="best")
     plt.show()
 
@@ -47,10 +48,4 @@ if __name__ == "__main__":
 
     data = pd.read_csv(sys.argv[1], index_col=0)
 
-    numerical_columns = [
-    'Arithmancy', 'Astronomy', 'Herbology', 'Defense Against the Dark Arts',
-    'Divination', 'Muggle Studies', 'Ancient Runes', 'History of Magic',
-    'Transfiguration', 'Potions', 'Care of Magical Creatures', 'Charms', 'Flying'
-    ]
-
-    plot_all_feature_pairs(data, numerical_columns)
+    plot_all_feature_pairs(data)
