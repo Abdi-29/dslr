@@ -10,8 +10,6 @@ def process_data(data):
 
     x = (x - x.mean()) / x.std()
 
-    x.insert(0, 'Bias', 1)
-
     return x.values
 
 if __name__ == "__main__":
@@ -19,8 +17,8 @@ if __name__ == "__main__":
 
     data = pd.read_csv(sys.argv[1], index_col=0)
 
-    houses = data['Hogwarts House'].unique()
-    y_encode = {house: (data['Hogwarts House'] == house).astype(int) for house in houses}
+    houses = data[HOUSES].unique()
+    y_encode = {house: (data[HOUSES] == house).astype(int) for house in houses}
     print(y_encode)
 
     process_data(data)
